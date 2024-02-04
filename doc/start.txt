@@ -6,6 +6,78 @@ https://stackoverflow.com/questions/71924077/configuring-task-json-and-launch-js
 https://code.visualstudio.com/docs/cpp/launch-json-reference
 https://vscode-docs.readthedocs.io/en/stable/languages/json/
 https://docs.github.com/en/issues/planning-and-tracking-with-projects
+
+
+
+
+*****************************************start of Prj********************************
+till Now:
+  first:
+    install pakage:
+            vs code
+            add linux part of win 11 pakage 
+            power shell Terminal
+            wsl form terminal
+            ubonto shell of terminal
+            ubonto
+                gcc
+                gdb 
+                neovim
+            solve some problem (set ip 8.8.8.8 for dns)    
+    install extentions on vs code
+            wsl extention on vs code
+    go on wsl on vscode
+            install extention on wsl mode of vs code
+                  theme extention
+                  icom extention
+                  c/cpp extention (include 5 extention) 
+                  pdf reader (read doc of prj)
+                  todo (for future development of prj)
+                  black box ai (a good assitant)
+                  binary viewer
+  second: 
+    produce first c prog on linux
+        write a simple hello world program in c
+        compile & run & debug with gcc & gdb
+        change  and set task.json and launch.jason
+  third:
+    produce multi file project
+          management file and folders      
+                include files (in child folder)
+                src files (in child folder)
+                doc files (in child folder)
+                main (tomgit.c) in root of prj
+                main setting ()
+          set task.json anf launch.json
+          mnagement of header file
+                use predefine cammand
+                tg_def.h 
+                tg_global.h 
+                tg_util.h  (general sub functions)
+                tg_main.h 
+                some of tg_functions.h
+          debug and release version by predefine statment 
+                main with static and dynamic argumans (for debuging)
+          creat a soft link to prj for call it anywhere
+                ln -s "/mnt/e/fop/project/tomgit" usr/bin/tomgit  
+  forth:
+      git:
+          init (create repo in main dir)
+          config ( user  ??   email ??    )
+          study a lot of doc for it !!!
+      github:
+            new account (email user  pass ???)
+            create remote repo
+      set git ignore files an dir (.gitignore)
+  five:
+
+
+
+
+
+
+
+*****************************************************************************************
 I've recently had the same issues. Here is the procedure that I follow, that seem to work:
 
 Download and install msys2 (1)
@@ -201,3 +273,16 @@ Later you may want to update msys2. To do this, open “msys2 mingw64” and typ
 pacman -Suy
 Done (11)
 Finally done … Not the easiest thing to get going, but I still think it is worth it.
+
+
+
+       
+        
+
+          
+
+    
+
+
+
+        

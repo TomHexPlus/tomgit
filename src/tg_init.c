@@ -46,7 +46,7 @@
         printf("\n%s created.", REPO_NAME);
         printf("\n%s is default global username (changeable).", REPO_GLOBAL_FIRST_USER);
         printf("\n%s is default global useremail (changeable).", REPO_GLOBAL_FIRST_EMAIL);
-        return create_configs("mohsen", "mohsenghasemi8156@gmail.com");
+        return create_configs(gUser,gEmail);
     } else {
         perror("\ntomgit repository has already initialized");
     }
@@ -55,6 +55,49 @@
 }
 
 int fun_config(int argc, char *argv[]){
+
+    
+    bool errFlag = false;
+
+    if (strcmp(argv[2],"-global") == 0)
+    {
+        strcpy(gUser,argv[3]);
+        strcpy(gEmail,argv[4]);
+        IsGlobUser = true;
+         for (size_t i = 0; i < nOfPrj; i++)
+        {
+            strcpy(prjs[i].User,argv[3]);
+            strcpy(prjs[i].Email,argv[4]);
+        }
+    }else if (strncmp(argv[2],"alias.",6) == 0){
+        if (IsValidAlias(argv[0],argv[3]))
+        {
+            strcpy(alias,(argv[2]+6));
+            strcpy(aliasLnk,(argv[3]));
+        }
+        else errFlag = false;
+               
+    }
+    else if (argc == 4){
+        IsGlobUser = false;
+        strcpy(prjs[current_prj].User,argv[2]);
+        strcpy(prjs[current_prj].Email,argv[3]);
+    }else{
+         fprintf(stderr, "Invalid arguments for command %s\n", argv[1]);
+         fprintf(stderr, "%s", cmds[curFunId].usage);
+                return 1;
+
+    }
+    if (errFlag){
+
+        fprintf(stderr, "Invalid arguments for alias in %s\n", argv[1]);
+        fprintf(stderr, "%s", cmds[curFunId].usage);
+
+        return 1;
+    }
+  
+
+
    return 0;
 }
 int create_configs(char *username, char *email) {
@@ -64,6 +107,7 @@ int create_configs(char *username, char *email) {
 
     fprintf(file, "username: %s\n", username);
     fprintf(file, "email: %s\n", email);
+
     fprintf(file, "last_commit_ID: %d\n", last_commit_ID);
     fprintf(file, "current_commit_ID: %d\n",current_commit_ID);
     fprintf(file, "branch: %s\n", branch);
@@ -86,3 +130,12 @@ int create_configs(char *username, char *email) {
     
     return 0;
 }
+bool IsValidAlias(char git[],char aCmd[]){
+
+
+if (strncmp(git,aCmd,strlen(git)) != 0) return false;
+
+
+return true;
+}
+

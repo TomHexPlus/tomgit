@@ -1,61 +1,21 @@
-for headers and fun in c on linux:
-    source 1
-        https://pubs.opengroup.org/onlinepubs/007904975/basedefs/unistd.h.html
-        https://pubs.opengroup.org/onlinepubs/007904975/functions/getcwd.html
+implemtation of :
 
-        source 2
-        https://man7.org/linux/man-pages/man3/getcwd.3.html
+        first level:
+            int fun_init(int argc, char *argv[]);
+                check of existing repo in pwd and it's parents till root
+                creat repo .tomgit dir
+                some nessesery files and directory 
+                write some of var in config file 
+                    like global user and email ...
 
-        source 3
-        https://linux.die.net/man/2/stat
-        https://linux.die.net/man/2/mkdir
-
-
-for example :
-
-     from  https://stackoverflow.com/questions/7430248/creating-a-new-directory-in-c
+            int fun_config(int argc, char *argv[]);
+                get user and email globe and override all of prjs
+                or get prj user and email 
+                create alias command one case 
+                chek of including in tomgit set of command
         
-     ////////////////////////////////////// 
-            void rek_mkdir(char *path) {
-            char *sep = strrchr(path, '/');
-            if(sep != NULL) {
-                *sep = 0;
-                rek_mkdir(path);
-                *sep = '/';
-            }
-            if(mkdir(path, 0777) && errno != EEXIST)
-                fprintf(stderr, "error while trying to create '%s'\n%m\n", path); 
-        }
-
-        FILE *fopen_mkdir(char *path, char *mode) {
-            char *sep = strrchr(path, '/');
-            if(sep) { 
-                char *path0 = strdup(path);
-                path0[ sep - path ] = 0;
-                rek_mkdir(path0);
-                free(path0);
-            }
-            return fopen(path,mode);
-        }
-
-////////////////////////////////////////////////////////////////////
-// simple ver of above withot recursive
-
-        FILE * fopen_mkdir(const char *path, const char *mode)
-        {
-            char *p = strdup(path);
-            char *sep = strchr(p+1, '/');
-            while(sep != NULL)
-            {
-                *sep = '\0';
-                if (mkdir(p, 0755) && errno != EEXIST)
-                {
-                    fprintf(stderr, "error while trying to create %s\n", p);
-                }
-                *sep = '/';
-                sep = strchr(sep+1, '/');
-            }
-            free(p);
-            return fopen(path, mode);
-        }
-        ////////////////////////////////
+        second level:
+            int create_configs(char *username, char *email);
+                use in init fun
+            bool IsValidAlias(char git[],char aCmd[]);
+                use in fun_config for detect error of input arg of command

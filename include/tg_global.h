@@ -20,13 +20,6 @@
     #include "tg_def.h"
 
 
-    #define MAX_WORD_CHAR  50
-    #define MAX_USAGE_CHAR 1000
-    //TODO 1 increase number of projects  and command functions in future
-
-    #define NUMOFFUN 2 //TODO number of func
-    #define NUMOFPRJ 1
-
 typedef struct Command
     {
         int (* fun)(int argc, char *argv[]);
@@ -41,9 +34,12 @@ typedef struct Command
 
 
 
-    typedef struct Project
+    typedef struct Project  
     {
         int id;
+        char User[MAX_LINE_CHAR] ;
+        char Email[MAX_LINE_CHAR] ;
+        
         //TODO 1 can add projects in future
     }PRJ;
 
@@ -68,10 +64,15 @@ typedef struct Command
     extern int   last_commit_ID; 
     extern int   current_commit_ID ;
         
-    extern     PRJ prjs[NUMOFPRJ];
-    extern     CMD cmds[];
+    extern     PRJ prjs[NUMOFPRJ]; //projects in tomgit
+    extern     CMD cmds[];          // valid commands in tomgit
 
    extern int   last_commit_ID ; 
    extern int   current_commit_ID ;
+
+   extern char alias[MAX_LINE_CHAR]; //alias name
+   extern char aliasLnk[MAX_LINE_CHAR]; //command for alias name
+
+   extern int curFunId;  // zero index of calling fun in tomgit
 
 #endif
