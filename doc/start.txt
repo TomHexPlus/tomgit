@@ -5,6 +5,7 @@ https://visualstudio.microsoft.com/keyboard-shortcuts.pdf
 https://stackoverflow.com/questions/71924077/configuring-task-json-and-launch-json-for-c-in-vs-code
 https://code.visualstudio.com/docs/cpp/launch-json-reference
 https://vscode-docs.readthedocs.io/en/stable/languages/json/
+https://docs.github.com/en/issues/planning-and-tracking-with-projects
 I've recently had the same issues. Here is the procedure that I follow, that seem to work:
 
 Download and install msys2 (1)

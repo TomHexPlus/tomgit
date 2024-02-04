@@ -1,8 +1,88 @@
+
  #include "tg_init.h"
 
 
 
  int fun_init(int argc, char *argv[]) {
 
+
+
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) == NULL) return 1;
+
+    char tmp_cwd[1024];
+    bool exists = false;
+    struct dirent *entry;
+
+    do {
+        // find repo.
+        // DIR *dir = opendir(".");
+        DIR *dir = opendir(cwd); //TODO
+        if (dir == NULL) {
+            perror("\nError opening current directory");
+            return 1;
+        }
+        while ((entry = readdir(dir)) != NULL) {
+            if (entry->d_type == DT_DIR && strcmp(entry->d_name, REPO_NAME) == 0)
+                exists = true;
+        }
+        closedir(dir);
+
+        // update current working directory
+        if (getcwd(tmp_cwd, sizeof(tmp_cwd)) == NULL) return 1;
+
+        // change cwd to parent
+        if (strcmp(tmp_cwd, "/") != 0) {
+            if (chdir("..") != 0) return 1;
+        }
+
+    } while (strcmp(tmp_cwd, "/") != 0);
+
+    // return to the initial cwd
+    if (chdir(cwd) != 0) return 1;
+        
+    if (!exists) {
+        if (mkdir(REPO_NAME, DIR_MAKE_MODE) != 0) return 1;
+        printf("\n%s created.", REPO_NAME);
+        printf("\n%s is default global username (changeable).", REPO_GLOBAL_FIRST_USER);
+        printf("\n%s is default global useremail (changeable).", REPO_GLOBAL_FIRST_EMAIL);
+        return create_configs("mohsen", "mohsenghasemi8156@gmail.com");
+    } else {
+        perror("\ntomgit repository has already initialized");
+    }
+
+    return 0;
+}
+
+int fun_config(int argc, char *argv[]){
+   return 0;
+}
+int create_configs(char *username, char *email) {
+
+    FILE *file = fopen(REPO_NAME_CONFIG_F , "w");
+    if (file == NULL) return 1;
+
+    fprintf(file, "username: %s\n", username);
+    fprintf(file, "email: %s\n", email);
+    fprintf(file, "last_commit_ID: %d\n", last_commit_ID);
+    fprintf(file, "current_commit_ID: %d\n",current_commit_ID);
+    fprintf(file, "branch: %s\n", branch);
+
+    fclose(file);
+
+    file = fopen(REPO_NAME_STAGING_F, "w");
+    fclose(file);
+
+    file = fopen(REPO_NAME_TRACKS_F, "w");
+    fclose(file);
+
+    
+    // create commits folder
+    if (mkdir(REPO_NAME_COMMITS_D, DIR_MAKE_MODE) != 0) return 1;
+
+    // create files folder
+    if (mkdir(REPO_NAME_FILES_D, DIR_MAKE_MODE) != 0) return 1;
+
+    
     return 0;
 }
