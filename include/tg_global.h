@@ -3,8 +3,9 @@
 #define _GLOBB_H	
 
     #include <stdio.h>  
-    //tg_init: perror()
-    
+
+    #include <time.h>
+
     #include <stdlib.h>
     #include <string.h>
     #include <stdbool.h>
@@ -74,5 +75,9 @@ typedef struct Command
    extern char aliasLnk[MAX_LINE_CHAR]; //command for alias name
 
    extern int curFunId;  // zero index of calling fun in tomgit
+
+    extern char comm_mesge[MAX_LINE_CHAR];
+    extern bool IsCommMsge;
+    extern char comm_shcut_mesge[MAX_LINE_CHAR];
 
 #endif

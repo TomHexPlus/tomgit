@@ -4,6 +4,7 @@
 #include "tg_util.h"
 #include "tg_add_reset.h"
 #include "tg_main.h"
+#include "tg_commit.h"
 
 
 
@@ -29,6 +30,10 @@
 
     int curFunId = 0;
 
+    char comm_mesge[MAX_LINE_CHAR] = "";
+    char comm_shcut_mesge[MAX_LINE_CHAR] = "";
+    bool IsCommMsge = false;
+
 PRJ prjs[] = {
     {1, REPO_FIRST_USER, REPO_FIRST_EMAIL} 
 };
@@ -50,8 +55,16 @@ CMD cmds[] = {
     {fun_reset, 3, MAX_ARGS, "reset",0 ,"\nUsage: tomgit reset [file address or directory address]\
                                     \n       tomgit reset -f <file1> <file2> <dir1>\
                                     \n       tomgit reset -undo\
-                                    \n" }  
-   
+                                    \n" },  
+    {fun_commit, 4, 6, "commit",0 ,"\nUsage: tomgit commit -m [commit message]\
+                                    \n       tomgit commit -s shortcut-name\
+                                    \n" },
+    {fun_set, 6, 6, "set",0 ,      "\nUsage: tomgit set -m ”shortcut message” -s shortcut-name\
+                                    \n" },
+    {fun_replace, 4, 4, "replace",0,"\nUsage:  tomgit replace -m ”new shortcut message” -s shortcut-name\
+                                     \n" },
+    {fun_remove, 4, 4, "remove",0,   "\nUsage:  tomgit remove -s shortcut-name\
+                                     \n" }                                                                                                
 };
 
 
