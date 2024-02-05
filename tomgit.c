@@ -1,8 +1,8 @@
 //#define _DEBUG_GIT_VER_
 
-#include "tg_init.h"
+#include "tg_init_config.h"
 #include "tg_util.h"
-#include "tg_add.h"
+#include "tg_add_reset.h"
 #include "tg_main.h"
 
 
@@ -41,9 +41,19 @@ CMD cmds[] = {
                                     \n       tomgit config (–global) alias.<alias-name> \"a command\"\
                                     \n" },
     {fun_init, 2, 2, "init",0 ,"\nUsage: tomgit init\
-                                    \n" }                                
-    
+                                    \n" },
+    {fun_add, 3, MAX_ARGS, "add",0 ,"\nUsage: tomgit add [file address or directory address]\
+                                    \n       tomgit add -f <file1> <file2> <dir1>\
+                                    \n       tomgit add -n <depth>\
+                                    \n       tomgit add -redo <depth>\
+                                    \n" },
+    {fun_reset, 3, MAX_ARGS, "reset",0 ,"\nUsage: tomgit reset [file address or directory address]\
+                                    \n       tomgit reset -f <file1> <file2> <dir1>\
+                                    \n       tomgit reset -undo\
+                                    \n" }  
+   
 };
+
 
 
 #ifdef _DEBUG_GIT_VER_
@@ -53,9 +63,18 @@ int main(){
 	char *argv[] = {"tomgit", "config",  "d"};
 #else
 int main(int argc, char *argv[]) {
-    
+
+    if (!isExistRipo())
+    {
+        if ((argc == 2) && (!strcmp(argv[1],"init"))) return run_command(argc, argv);
+        else{
+                fprintf(stdout, "please first init \n");
+                return 1;
+            }    
+    }
     if (argc < 2) {
-        if (alias)
+
+        if (alias) 
         {
             return run_alias(argc, argv);
         }else{
@@ -109,7 +128,43 @@ int run_alias(int argc, char *argv[]){
 
 }
 
+bool isExistRipo()
+{
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) == NULL) return false;//TODO
 
+    char tmp_cwd[1024];
+    bool exists = false;
+    struct dirent *entry;
+
+       do {
+        // find repo.
+        // DIR *dir = opendir(".");
+        DIR *dir = opendir(cwd); //TODO
+        if (dir == NULL) {
+            perror("Error opening current directory\n");
+            return false;
+        }
+        while ((entry = readdir(dir)) != NULL) {
+            if (entry->d_type == DT_DIR && strcmp(entry->d_name, REPO_NAME) == 0)
+                exists = true;
+        }
+        closedir(dir);
+
+        // update current working directory
+        if (getcwd(tmp_cwd, sizeof(tmp_cwd)) == NULL) return 1;
+
+        // change cwd to parent
+        if (strcmp(tmp_cwd, "/") != 0) {
+            if (chdir("..") != 0) return false;
+        }
+
+    } while (strcmp(tmp_cwd, "/") != 0);
+
+        return exists;
+
+    
+}
 
 
 

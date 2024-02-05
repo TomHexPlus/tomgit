@@ -12,7 +12,7 @@ implemtation of :
                 get user and email globe and override all of prjs
                 or get prj user and email 
                 create alias command one case 
-                chek of including in tomgit set of command
+                chek error of including in tomgit set of command
         
         second level:
             int create_configs(char *username, char *email);

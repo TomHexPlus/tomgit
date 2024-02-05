@@ -1,5 +1,5 @@
 
- #include "tg_init.h"
+ #include "tg_init_config.h"
 
 
 
@@ -17,7 +17,7 @@
     do {
         // find repo.
         // DIR *dir = opendir(".");
-        DIR *dir = opendir(cwd); //TODO
+        DIR *dir = opendir("."); //TODO
         if (dir == NULL) {
             perror("\nError opening current directory");
             return 1;

@@ -17,6 +17,7 @@
 
     #define REPO_NAME_CONFIG_F  ".tomgit/config"
     #define REPO_NAME_STAGING_F  ".tomgit/staging"
+    #define REPO_NAME_TMP_STAGING_F  ".tomgit/tmp_staging"
     #define REPO_NAME_TRACKS_F  ".tomgit/tracks"
 
     #define REPO_NAME_COMMITS_D  ".tomgit/commits"
@@ -27,6 +28,7 @@
 
     #define DIR_MAKE_MODE  0755
 
+
     
     #define MAX_WORD_CHAR  50
     #define MAX_LINE_CHAR  500
@@ -34,8 +36,10 @@
     #define MAX_ALIAS_PART 20
     //TODO 1 increase number of projects  and command functions in future
 
-    #define NUMOFFUN 2 //TODO number of func
+    #define NUMOFFUN 4 //TODO number of func
     #define NUMOFPRJ 1
+
+    #define MAX_ARGS 10  // in some function that didn't have specify max args
 
 
    
