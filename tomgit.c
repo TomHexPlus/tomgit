@@ -5,10 +5,10 @@
 #include "tg_add_reset.h"
 #include "tg_main.h"
 #include "tg_commit.h"
+#include "tg_checkout.h"
 
 
 
-#define _DEBUG_GIT_VER_
 
 
     bool IsGlobUser = true;
@@ -64,7 +64,11 @@ CMD cmds[] = {
     {fun_replace, 4, 4, "replace",0,"\nUsage:  tomgit replace -m ”new shortcut message” -s shortcut-name\
                                      \n" },
     {fun_remove, 4, 4, "remove",0,   "\nUsage:  tomgit remove -s shortcut-name\
-                                     \n" }                                                                                                
+                                     \n" },
+    {fun_checkout, 3, 3, "checkout",0 ,"\nUsage: tomgit checkout <branch-name>\
+                                    \n       tomgit checkout <commit-id>\
+                                    \n       tomgit checkout HEAD\
+                                    \n" }                                                                                                                                   
 };
 
 
@@ -72,13 +76,27 @@ CMD cmds[] = {
 #ifdef _DEBUG_GIT_VER_
 int main(){
     
-  	int argc = 1;
-	char *argv[] = {"tomgit", "config",  "d"};
+  	int argc = 2;
+	char *argv[] = {"tomgit", "init"};
+
+    char cwd[1024] = "";
+   // if (chdir(".") != 0) {printf("llll");return 1;}
+    if (getcwd(cwd, sizeof(cwd)) == NULL) return 1;
+    printf("Debug Main Current working dir: %s\n", cwd);
+    
 #else
 int main(int argc, char *argv[]) {
 
+   char cwd[1024] = "";
+   // if (chdir(".") != 0) {printf("llll");return 1;}
+    if (getcwd(cwd, sizeof(cwd)) == NULL) return 1;
+    printf("Main Current working dir: %s\n", cwd);
+
+ #endif  
     if (!isExistRipo())
     {
+             if (getcwd(cwd, sizeof(cwd)) == NULL) return 1;
+    printf("d/Main Current working dir: %s\n", cwd);
         if ((argc == 2) && (!strcmp(argv[1],"init"))) return run_command(argc, argv);
         else{
                 fprintf(stdout, "please first init \n");
@@ -87,21 +105,21 @@ int main(int argc, char *argv[]) {
     }
     if (argc < 2) {
 
-        if (alias) 
+        if (alias) //TODO when is became null
         {
-            return run_alias(argc, argv);
+            if(strcmp(alias , argv[0]) == 0)return run_alias(argc, argv);
         }else{
               fprintf(stdout, "please enter a valid command\n");
              return 1;
         }
              
     }
- #endif  
+
     return run_command(argc, argv);
 }
 
 int run_command(int argc,  char *argv[]) {
-    //print_command(argc, argv);
+   //print_command(argc, argv);
     int i;
     for (i = 0; i < NUMOFFUN ; i++) {
         if (strcmp(argv[1], cmds[i].name) == 0) {
@@ -120,13 +138,12 @@ int run_command(int argc,  char *argv[]) {
 }
 int run_alias(int argc, char *argv[]){
 
-   
-      char aliasLine[MAX_LINE_CHAR]  ;
-      strcpy(aliasLine,argv[0]);
+    
+
       char aliasPart[MAX_ALIAS_PART][MAX_WORD_CHAR] = {""};
       int u = 0, u0 = 0, j = 0;
         
-        while (sscanf(u + aliasLine, "%s%n", aliasPart[j], &u0) > 0) //??  &
+        while (sscanf(u + aliasLnk, "%s%n", aliasPart[j], &u0) > 0) //??  &
         {
             j++;
             u += u0;
@@ -174,10 +191,13 @@ bool isExistRipo()
 
     } while (strcmp(tmp_cwd, "/") != 0);
 
+    
+    if (chdir(cwd) != 0) return 1;
         return exists;
 
     
 }
+
 
 
 

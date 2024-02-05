@@ -40,7 +40,7 @@
     #define MAX_FILENAME_LENGTH 1000
     //TODO 1 increase number of projects  and command functions in future
 
-    #define NUMOFFUN 8 //TODO number of func
+    #define NUMOFFUN 9 //TODO number of func
     #define NUMOFPRJ 1
 
     #define MAX_ARGS 10  // in some function that didn't have specify max args

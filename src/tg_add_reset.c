@@ -2,7 +2,7 @@
 
 
 int fun_add(int argc, char *argv[]){
-
+print_command(argc, argv);
 
     if(strcmp(argv[2], "-f") == 0){
         run_add_f( argc, argv);
@@ -123,7 +123,7 @@ int fun_add(int argc, char *argv[]){
 
 
 int fun_reset(int argc, char *argv[]) {
-
+print_command(argc, argv);
     if(strcmp(argv[2], "-f") == 0){
         run_reset_f( argc, argv);
     }else if (strstr(argv[2],"*") != NULL){

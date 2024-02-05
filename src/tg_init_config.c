@@ -4,13 +4,18 @@
 
 
  int fun_init(int argc, char *argv[]) {
+print_command(argc, argv);
 
 
-
-    char cwd[1024];
+    char cwd[1024] = "";
+    
     if (getcwd(cwd, sizeof(cwd)) == NULL) return 1;
 
-    char tmp_cwd[1024];
+   
+   // printf("Current working dir: %s\n", cwd);
+    
+    
+    char tmp_cwd[1024] = "";
     bool exists = false;
     struct dirent *entry;
 
@@ -25,12 +30,13 @@
         while ((entry = readdir(dir)) != NULL) {
             if (entry->d_type == DT_DIR && strcmp(entry->d_name, REPO_NAME) == 0)
                 exists = true;
+               
         }
         closedir(dir);
 
         // update current working directory
         if (getcwd(tmp_cwd, sizeof(tmp_cwd)) == NULL) return 1;
-
+        //printf("Current working dir: %s\n", tmp_cwd);
         // change cwd to parent
         if (strcmp(tmp_cwd, "/") != 0) {
             if (chdir("..") != 0) return 1;
@@ -45,17 +51,17 @@
         if (mkdir(REPO_NAME, DIR_MAKE_MODE) != 0) return 1;
         printf("\n%s created.", REPO_NAME);
         printf("\n%s is default global username (changeable).", REPO_GLOBAL_FIRST_USER);
-        printf("\n%s is default global useremail (changeable).", REPO_GLOBAL_FIRST_EMAIL);
+        printf("\n%s is default global useremail (changeable).\n", REPO_GLOBAL_FIRST_EMAIL);
         return create_configs(gUser,gEmail);
     } else {
-        perror("\ntomgit repository has already initialized");
+        perror("\ntomgit repository has already initialized\n");
     }
 
     return 0;
 }
 
 int fun_config(int argc, char *argv[]){
-
+print_command(argc, argv);
     
     bool errFlag = false;
 
@@ -75,7 +81,7 @@ int fun_config(int argc, char *argv[]){
             strcpy(alias,(argv[2]+6));
             strcpy(aliasLnk,(argv[3]));
         }
-        else errFlag = false;
+        else errFlag = true;
                
     }
     else if (argc == 4){

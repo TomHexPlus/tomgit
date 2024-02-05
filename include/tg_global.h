@@ -19,6 +19,7 @@
     //tg_init: DIR - DT_DIR - struct dirent - ->d_type - ->d_name -opendir()- readdir()-closedir()
 
     #include "tg_def.h"
+    #include "tg_util.h"
 
 
 typedef struct Command

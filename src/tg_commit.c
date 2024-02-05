@@ -3,7 +3,7 @@
 
 
     int fun_commit(int argc, char *argv[]) {
-    
+    print_command(argc, argv);
     
      if(!IsCommMsge)
          if ((strcmp(argv[2], "-m"))){
@@ -239,6 +239,7 @@ int find_file_last_commit(char* filepath) {
 }
 
 int fun_set(int argc, char *argv[]){
+    print_command(argc, argv);
     //error handling do in main with number of args
     if (strlen(argv[3]) > LIMIT_MESSAGE){
 
@@ -255,6 +256,7 @@ int fun_set(int argc, char *argv[]){
     
 }
 int fun_replace(int argc, char *argv[]){
+    print_command(argc, argv);
     //error handling do in main with number of args
     if ( (strcmp(argv[2], "-m") || strcmp(argv[4] , "-s"))){
 
@@ -286,6 +288,7 @@ int fun_replace(int argc, char *argv[]){
     return 0;
 }
 int fun_remove(int argc, char *argv[]){
+    print_command(argc, argv);
 
      if ((strlen(argv[3]) , comm_shcut_mesge) != 0){
 

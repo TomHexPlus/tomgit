@@ -1,6 +1,6 @@
 
-#ifndef _TG_ADD
-#define _TG_ADD 
+#ifndef _TG_ADD_H
+#define _TG_ADD_H 
 #include "tg_global.h"
 
 // for add command

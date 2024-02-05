@@ -1,5 +1,5 @@
-#ifndef _TG_COMMIT
-#define _TG_COMMIT 
+#ifndef _TG_COMMIT_H
+#define _TG_COMMIT_H 
 #include "tg_global.h"
 
 

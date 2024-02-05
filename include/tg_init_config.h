@@ -1,6 +1,6 @@
 
-#ifndef _TG_INIT
-#define _TG_INIT 
+#ifndef _TG_INIT_H
+#define _TG_INIT_H 
 #include "tg_global.h"
 
 
