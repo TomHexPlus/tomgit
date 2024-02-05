@@ -34,6 +34,11 @@
     char comm_shcut_mesge[MAX_LINE_CHAR] = "";
     bool IsCommMsge = false;
 
+
+
+
+
+
 PRJ prjs[] = {
     {1, REPO_FIRST_USER, REPO_FIRST_EMAIL} 
 };
@@ -76,8 +81,8 @@ CMD cmds[] = {
 #ifdef _DEBUG_GIT_VER_
 int main(){
     
-  	int argc = 2;
-	char *argv[] = {"tomgit", "init"};
+  	int argc = 5;
+	char *argv[] = {"tomgit", "config" , "user.name" , "ali"};
 
     char cwd[1024] = "";
    // if (chdir(".") != 0) {printf("llll");return 1;}
@@ -86,6 +91,9 @@ int main(){
     
 #else
 int main(int argc, char *argv[]) {
+
+
+    read_global();
 
    char cwd[1024] = "";
    // if (chdir(".") != 0) {printf("llll");return 1;}
@@ -198,10 +206,105 @@ bool isExistRipo()
     
 }
 
+int read_global(void)
+{
+       FILE *file = fopen(REPO_NAME_CONFIG_F, "r");
+    if (file == NULL) return -1;
+    
+    // FILE *tmp_file = fopen(REPO_NAME_TMP_CONFIG_F, "w");
+    // if (tmp_file == NULL) return -1;
+
+ 
+    fscanf(file, "username: %s\n", gUser);
+    fscanf(file, "email: %s\n", gEmail);
+
+    fscanf(file, "last_commit_ID: %d\n", &last_commit_ID);
+    fscanf(file, "current_commit_ID: %d\n",&current_commit_ID);
+    fscanf(file, "branch: %s\n", branch);
+
+    fscanf(file, "IsGlobUser: %d\n", (int *)&IsGlobUser);
+    fscanf(file, "nOfPrj: %d\n",&nOfPrj);
+    fscanf(file, "current_prj: %d\n",&current_prj);
+
+    fscanf(file, "alias: %s\n", alias);
+    fscanf(file, "aliasLnk: %s\n", aliasLnk);
+     fscanf(file, "comm_mesge: %s\n", comm_mesge);
+    fscanf(file, "comm_shcut_mesge: %s\n", comm_shcut_mesge);
+
+    fscanf(file, "IsCommMsge: %d\n",(int *) &IsCommMsge);
+
+/////////////////////////////////////////////////////////
+    //  fprintf(tmp_file, "username: %s\n", username);
+    // fprintf(tmp_file, "email: %s\n", email);
+
+    // fprintf(tmp_file, "last_commit_ID: %d\n", last_commit_ID);
+    // fprintf(tmp_file, "current_commit_ID: %d\n",current_commit_ID);
+    // fprintf(tmp_file, "branch: %s\n", branch);
+
+    // fprintf(tmp_file, "IsGlobUser: %d\n", IsGlobUser);
+    // fprintf(tmp_file, "nOfPrj: %d\n",nOfPrj);
+    // fprintf(tmp_file, "current_prj: %d\n",current_prj);
+
+    // fprintf(tmp_file, "alias: %s\n", alias);
+    // fprintf(tmp_file, "aliasLnk: %s\n", aliasLnk);
+    //  fprintf(tmp_file, "comm_mesge: %s\n", comm_mesge);
+    // fprintf(tmp_file, "comm_shcut_mesge: %s\n", comm_shcut_mesge);
+
+    // fprintf(tmp_file, "IsCommMsge: %d\n", IsCommMsge);
 
 
 
 
+    fclose(file);
+    // fclose(tmp_file);
+
+    // remove(REPO_NAME_CONFIG_F);
+    // rename(REPO_NAME_TMP_CONFIG_F, REPO_NAME_CONFIG_F);
+   
+ return 0;
+    
+}
+
+
+int write_global(void)
+{
+       // FILE *file = fopen(REPO_NAME_CONFIG_F, "r");
+      //  if (file == NULL) return -1;
+    
+    FILE *tmp_file = fopen(REPO_NAME_TMP_CONFIG_F, "w");
+    if (tmp_file == NULL) return -1;
+
+ 
+     fprintf(tmp_file, "username: %s\n", gUser);
+    fprintf(tmp_file, "email: %s\n", gEmail);
+
+    fprintf(tmp_file, "last_commit_ID: %d\n", last_commit_ID);
+    fprintf(tmp_file, "current_commit_ID: %d\n",current_commit_ID);
+    fprintf(tmp_file, "branch: %s\n", branch);
+
+    fprintf(tmp_file, "IsGlobUser: %d\n", IsGlobUser);
+    fprintf(tmp_file, "nOfPrj: %d\n",nOfPrj);
+    fprintf(tmp_file, "current_prj: %d\n",current_prj);
+
+    fprintf(tmp_file, "alias: %s\n", alias);
+    fprintf(tmp_file, "aliasLnk: %s\n", aliasLnk);
+     fprintf(tmp_file, "comm_mesge: %s\n", comm_mesge);
+    fprintf(tmp_file, "comm_shcut_mesge: %s\n", comm_shcut_mesge);
+
+    fprintf(tmp_file, "IsCommMsge: %d\n", IsCommMsge);
+
+
+
+
+    //fclose(file);
+     fclose(tmp_file);
+
+     remove(REPO_NAME_CONFIG_F);
+     rename(REPO_NAME_TMP_CONFIG_F, REPO_NAME_CONFIG_F);
+   return 0;
+
+    
+}
 
 
 

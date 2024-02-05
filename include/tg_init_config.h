@@ -10,5 +10,6 @@ int fun_config(int argc, char *argv[]);
 int create_configs(char *username, char *email);
 
 bool IsValidAlias(char git[],char aCmd[]);
+int write_in_config();
 
 #endif

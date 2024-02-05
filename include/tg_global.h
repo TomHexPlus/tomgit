@@ -69,8 +69,8 @@ typedef struct Command
     extern     PRJ prjs[NUMOFPRJ]; //projects in tomgit
     extern     CMD cmds[];          // valid commands in tomgit
 
-   extern int   last_commit_ID ; 
-   extern int   current_commit_ID ;
+   //extern int   last_commit_ID ; 
+   //extern int   current_commit_ID ;
 
    extern char alias[MAX_LINE_CHAR]; //alias name
    extern char aliasLnk[MAX_LINE_CHAR]; //command for alias name
